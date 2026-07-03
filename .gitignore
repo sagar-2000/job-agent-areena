@@ -1,0 +1,28 @@
+# Sensitive credentials — NEVER commit these
+credentials.json
+token.json
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# Data (SQLite DB and generated PDFs)
+data/jobs.db
+data/output/
+data/resumes/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store

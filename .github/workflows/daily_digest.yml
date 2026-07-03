@@ -1,0 +1,46 @@
+name: Daily Job Digest
+
+on:
+  schedule:
+    - cron: '0 7 * * *'  # 8am Irish time (UTC+1)
+  workflow_dispatch:       # allows manual trigger from GitHub UI
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Restore Gmail token
+        run: echo "$GMAIL_TOKEN_B64" | base64 -d > token.json
+        env:
+          GMAIL_TOKEN_B64: ${{ secrets.GMAIL_TOKEN_B64 }}
+
+      - name: Restore SQLite database from cache
+        uses: actions/cache@v4
+        with:
+          path: data/jobs.db
+          key: jobs-db-${{ github.run_id }}
+          restore-keys: |
+            jobs-db-
+
+      - name: Ensure data dir exists
+        run: mkdir -p data
+
+      - name: Run job agent
+        run: python main.py
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CAREERJET_AFFID:   ${{ secrets.CAREERJET_AFFID }}
+          TO_EMAIL:          ${{ secrets.TO_EMAIL }}
+          DATA_DIR:          data

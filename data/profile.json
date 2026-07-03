@@ -1,0 +1,42 @@
+{
+  "name": "Areena Taneja",
+  "target_roles": [
+    "Marketing Manager",
+    "B2B Marketing Manager",
+    "Senior Marketing Executive",
+    "Campaign Manager",
+    "Marketing Lead",
+    "Events Marketing Manager",
+    "Marketing Specialist",
+    "B2B Marketing Specialist",
+    "Digital Marketing Specialist",
+    "Event Marketing Specialist",
+    "Campaign Specialist",
+    "Demand Generation Specialist",
+    "Marketing Communications Specialist",
+    "Content Marketing Specialist",
+    "Paid Media Specialist",
+    "Performance Marketing Specialist"
+  ],
+  "seniority": "mid-to-senior",
+  "experience_years": 4,
+  "skills": [
+    "LinkedIn Ads", "Meta Ads", "Google Ads", "Google Display", "DV360",
+    "SEO", "Paid Media Strategy", "Performance Optimisation",
+    "HubSpot", "Mailchimp", "Marketo", "Eventbrite", "Gleanin", "Qualtrics",
+    "Google Analytics", "Looker Studio", "Power BI", "Tableau",
+    "Google Sheets", "Excel", "Canva", "WordPress", "Wix", "Shopify",
+    "Blog Writing", "Social Media Curation", "Video & GIF Production",
+    "HubSpot Automation", "Demand Generation", "B2B Campaign Management",
+    "Email Marketing", "Event Marketing", "Content Marketing"
+  ],
+  "location_preference": "Dublin or Remote",
+  "willing_to_relocate": false,
+  "salary_min": 0,
+  "salary_max": 70000,
+  "currency": "EUR",
+  "preferred_company_stage": ["startup", "series-a", "series-b", "scale-up", "enterprise"],
+  "industries_of_interest": ["tech", "SaaS", "B2B", "events", "fintech", "healthcare tech", "AI/ML", "e-commerce", "media"],
+  "industries_to_avoid": ["pure accounting", "tax", "legal", "insurance actuarial", "construction"],
+  "notes": "Candidate has 4+ years B2B marketing experience. She is suitable for mid-level to senior marketing roles. She targets MARKETING roles only — not sales, not HR, not finance. She is specifically strong in paid media (LinkedIn/Meta/Google Ads), HubSpot, email campaigns, B2B events, and demand generation. Roles titled Senior, Lead, or Manager are welcome. Reject roles requiring 7+ years or C-suite level (VP, CMO, Director of). Reject graduate/intern/trainee/entry-level roles as she is overqualified. Must be based in Dublin or Remote."
+}
