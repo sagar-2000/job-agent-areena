@@ -71,15 +71,6 @@ def insert_job(job: dict) -> int | None:
     conn = get_connection()
     cursor = conn.cursor()
     try:
-        # Check for same title + company already in DB (cross-platform dedup)
-        cursor.execute("""
-            SELECT id FROM jobs
-            WHERE LOWER(TRIM(title)) = LOWER(TRIM(?))
-              AND LOWER(TRIM(company)) = LOWER(TRIM(?))
-        """, (job["title"], job["company"]))
-        if cursor.fetchone():
-            return None  # same job from a different source
-
         cursor.execute("""
             INSERT INTO jobs (source, job_id, title, company, location, salary, url, description)
             VALUES (:source, :job_id, :title, :company, :location, :salary, :url, :description)
