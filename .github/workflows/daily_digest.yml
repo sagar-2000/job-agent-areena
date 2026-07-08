@@ -26,14 +26,6 @@ jobs:
         env:
           GMAIL_TOKEN_B64: ${{ secrets.GMAIL_TOKEN_B64 }}
 
-      - name: Restore SQLite database from cache
-        uses: actions/cache@v4
-        with:
-          path: data/jobs.db
-          key: jobs-db-${{ github.run_id }}
-          restore-keys: |
-            jobs-db-
-
       - name: Ensure data dir exists
         run: mkdir -p data
 
