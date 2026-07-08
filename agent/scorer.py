@@ -17,7 +17,7 @@ load_dotenv()
 
 client = anthropic.Anthropic(api_key=os.getenv("ANTHROPIC_API_KEY"))
 
-SCORE_THRESHOLD = 5
+SCORE_THRESHOLD = 3
 
 
 def load_user_profile() -> dict:
