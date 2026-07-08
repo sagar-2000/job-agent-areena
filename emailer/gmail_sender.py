@@ -54,10 +54,11 @@ def get_gmail_service():
 
 def build_message(jobs_data: list[dict]) -> MIMEMultipart:
     """Build the email message with HTML body and PDF attachments."""
+    to = os.getenv("TO_EMAIL") or TO_EMAIL
     msg = MIMEMultipart("mixed")
     msg["Subject"] = f"🤖 Job Digest: {len(jobs_data)} match(es) today"
-    msg["From"]    = TO_EMAIL
-    msg["To"]      = TO_EMAIL
+    msg["From"]    = to
+    msg["To"]      = to
 
     # HTML body
     rows = ""
@@ -81,8 +82,8 @@ def build_message(jobs_data: list[dict]) -> MIMEMultipart:
                    border-radius:6px; text-decoration:none; font-size:14px;">View Job →</a>
             </p>
             <p style="font-size:12px; color:#999;">
-                📄 Resume: {os.path.basename(item.get('resume_path', 'N/A'))}<br>
-                ✉️ Cover Letter: {os.path.basename(item.get('cover_letter_path', 'N/A'))}<br>
+                📄 Resume: {os.path.basename(item.get('resume_path') or 'N/A')}<br>
+                ✉️ Cover Letter: {os.path.basename(item.get('cover_letter_path') or 'N/A')}<br>
                 Both attached as PDFs.
             </p>
         </div>
@@ -128,7 +129,7 @@ def send_digest(jobs_data: list[dict]) -> bool:
         msg = build_message(jobs_data)
         raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
         service.users().messages().send(userId="me", body={"raw": raw}).execute()
-        print(f"📧 Digest sent via Gmail to {TO_EMAIL}!")
+        print(f"📧 Digest sent via Gmail to {os.getenv('TO_EMAIL') or TO_EMAIL}!")
         return True
     except Exception as e:
         print(f"❌ Gmail send failed: {e}")
