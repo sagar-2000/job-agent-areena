@@ -118,18 +118,34 @@ def build_message(jobs_data: list[dict]) -> MIMEMultipart:
     return msg
 
 
+def build_no_match_message() -> MIMEMultipart:
+    """Build a simple no-matches email."""
+    to = os.getenv("TO_EMAIL") or TO_EMAIL
+    msg = MIMEMultipart("mixed")
+    msg["Subject"] = "🤖 Job Digest: No strong matches today"
+    msg["From"]    = to
+    msg["To"]      = to
+    html = """
+    <div style="max-width:700px; margin:0 auto; font-family:sans-serif; color:#1a1a1a;">
+        <h1 style="color:#0070f3;">🤖 Your Daily Job Digest</h1>
+        <p style="color:#555;">No strong marketing matches found today. The agent will keep looking tomorrow.</p>
+        <hr style="border:none; border-top:1px solid #eee; margin:30px 0;">
+        <p style="font-size:12px; color:#999;">Powered by your Job Application Agent</p>
+    </div>
+    """
+    msg.attach(MIMEText(html, "html"))
+    return msg
+
+
 def send_digest(jobs_data: list[dict]) -> bool:
     """Send digest via Gmail API. Returns True on success."""
-    if not jobs_data:
-        print("No matches to send.")
-        return False
-
     try:
         service = get_gmail_service()
-        msg = build_message(jobs_data)
+        msg = build_message(jobs_data) if jobs_data else build_no_match_message()
         raw = base64.urlsafe_b64encode(msg.as_bytes()).decode()
         service.users().messages().send(userId="me", body={"raw": raw}).execute()
-        print(f"📧 Digest sent via Gmail to {os.getenv('TO_EMAIL') or TO_EMAIL}!")
+        to = os.getenv("TO_EMAIL") or TO_EMAIL
+        print(f"📧 Digest sent via Gmail to {to}!")
         return True
     except Exception as e:
         print(f"❌ Gmail send failed: {e}")
